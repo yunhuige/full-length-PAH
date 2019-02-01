@@ -1,0 +1,147 @@
+In force field folder on Anton, following files are available:
+
+
+angle_harm
+dihedral_trig
+improper_trig
+mass
+rules
+stretch_harm
+templates.amino_acids
+templates.fragments
+templates.heme
+templates.ions
+templates.nucleic_acids
+vdw1
+
+To build the custom force field, I started working on an existing force field available in Anton which is AMBER ff99SB-ILDN. Initially I was trying to update parameters based on AMBER ff99SB-ILDN-NMR from GROMACS but I didn't find the way to convert dihedral angle parameters from GROMACS to Desmond. So instead I changed other files first based on my parametrized topology from MCPB and ff99SB-ILDN-NMR force field. Here is how I modified each file:
+
+templates.amino_acids:
+
+New residues added for the metal site: GU1(GLU), HD1(HID), HD2(HID), M1(FE), WT1(H2O)
+For most part I just copied from the existing amino acids (GLU, HID) in the file. Changed the atom name based on the topology file for (C4, C5, C6, C3, Y1, Y2, Y3, Y4, M1, Y5). Added charge and mass information for new residues. Added "bonds" information between FE and Y1/Y2/Y3/Y4/Y5. Didn't add any information in "impropers" section of each residue (not sure if needed to add or not). Also there are 6 decimal points in gromacs topology file for charge but 5 decimal points in desmond. Just keep using 6 decimal points for now. If there are errors associated with this in the future then I need to change it.
+
+mass:
+
+Simply added these lines in the end:
+   {"type": ["Y1"], "params": {"amu": 14.01}, "memo": "MCPB"},
+   {"type": ["Y2"], "params": {"amu": 14.01}, "memo": "MCPB"},
+   {"type": ["Y3"], "params": {"amu": 16.00}, "memo": "MCPB"},
+   {"type": ["M1"], "params": {"amu": 55.00}, "memo": "MCPB"},
+   {"type": ["Y4"], "params": {"amu": 16.00}, "memo": "MCPB"},
+   {"type": ["Y5"], "params": {"amu": 16.00}, "memo": "MCPB"}
+
+rules:
+
+Didn't change anything.
+
+
+templates.fragments:
+
+Didn't change anything.
+
+
+templates.heme:
+
+Didn't change anything.
+
+
+templates.ions:
+
+Didn't change anything.
+
+
+templates.nucleic_acids:
+
+
+Didn't change anything.
+
+
+vdw1:
+
+These lines are added:
+
+   {"type": ["Y1"], "params": {"sigma": 3.24999852377595758400, "epsilon": 0.1700}, "memo": "Y1"},
+   {"type": ["Y2"], "params": {"sigma": 3.24999852377595758400, "epsilon": 0.1700}, "memo": "Y2"},
+   {"type": ["Y3"], "params": {"sigma": 2.95992190114946312420, "epsilon": 0.2100}, "memo": "Y3"},
+   {"type": ["M1"], "params": {"sigma": 2.46957, "epsilon": 0.013557604}, "memo": "M1"},
+   {"type": ["Y4"], "params": {"sigma": 2.95992190114946312420, "epsilon": 0.2100}, "memo": "Y4"},
+   {"type": ["Y5"], "params": {"sigma": 3.15075240657512379155, "epsilon": 0.1520}, "memo": "Y5"}
+
+The parameters (sigma and epsilon) are based on the information in gromacs topology file [atomtypes] section. sigma(desmond) = sigma(gromacs)*10   epsilon(desmond) = epsilon(gromacs)/4.184
+
+
+stretch_harm:
+
+These lines are added:
+
+   {"type": ["M1", "Y1"], "params": {"r0": 1.9225, "fc": 125.1}, "memo": "MCPB"},
+   {"type": ["M1", "Y2"], "params": {"r0": 1.9075, "fc": 125.7}, "memo": "MCPB"},
+   {"type": ["M1", "Y3"], "params": {"r0": 1.8622, "fc": 150.6}, "memo": "MCPB"},
+   {"type": ["M1", "Y4"], "params": {"r0": 1.9367, "fc": 137.1}, "memo": "MCPB"},
+   {"type": ["M1", "Y5"], "params": {"r0": 1.9756, "fc":77.9 }, "memo": "MCPB"},
+   {"type": ["Y5", "HW"], "params": {"r0": 0.9572, "fc": 553.0}, "memo": "! TIP3P water"},
+   {"type": ["CR", "Y1"], "params": {"r0": 1.335, "fc": 488.0}, "memo": "MCPB"},
+   {"type": ["Y1", "CV"], "params": {"r0": 1.394, "fc": 410.0}, "memo": "MCPB"},
+   {"type": ["CR", "Y2"], "params": {"r0": 1.335, "fc": 488.0}, "memo": "MCPB"},
+   {"type": ["Y2", "CV"], "params": {"r0": 1.394, "fc": 410.0}, "memo": "MCPB"},
+   {"type": ["C", "Y3"], "params": {"r0": 1.250, "fc": 656.0}, "memo": "MCPB"},
+   {"type": ["C", "Y4"], "params": {"r0": 1.250, "fc": 656.0}, "memo": "MCPB"},
+
+Based on the [bonds] section information. r0(desmond) = r0(gromacs)*10   fc(desmond) = fc(gromacs)/836.8
+
+angle_harm:
+
+These lines are added:
+
+   {"type": ["CR", "Y1", "M1"], "params": {"theta0": 122.98, "fc":123.80 }, "memo": "MCPB"}
+   {"type": ["Y1", "M1", "Y2"], "params": {"theta0": 102.21, "fc":79.76 }, "memo": "MCPB"}
+   {"type": ["Y1", "M1", "Y3"], "params": {"theta0": 99.10, "fc":127.00 }, "memo": "MCPB"}
+   {"type": ["Y1", "M1", "Y4"], "params": {"theta0": 164.44, "fc":126.37 }, "memo": "MCPB"}
+   {"type": ["Y1", "M1", "Y5"], "params": {"theta0": 93.73, "fc":115.60 }, "memo": "MCPB"}
+   {"type": ["CV", "Y1", "M1"], "params": {"theta0": 129.98, "fc":126.73 }, "memo": "MCPB"}
+   {"type": ["CR", "Y2", "M1"], "params": {"theta0": 126.39, "fc":97.41 }, "memo": "MCPB"}
+   {"type": ["Y2", "M1", "Y3"], "params": {"theta0": 104.78, "fc":67.47 }, "memo": "MCPB"}
+   {"type": ["Y2", "M1", "Y4"], "params": {"theta0": 90.37, "fc":94.93 }, "memo": "MCPB"}
+   {"type": ["Y2", "M1", "Y5"], "params": {"theta0": 111.87, "fc":44.50 }, "memo": "MCPB"}
+   {"type": ["CV", "Y2", "M1"], "params": {"theta0": 126.44, "fc":99.85 }, "memo": "MCPB"}
+   {"type": ["C", "Y3", "M1"], "params": {"theta0": 91.26, "fc":172.26 }, "memo": "MCPB"}
+   {"type": ["C", "Y4", "M1"], "params": {"theta0": 88.62, "fc":189.07 }, "memo": "MCPB"}
+   {"type": ["Y3", "M1", "Y4"], "params": {"theta0": 68.47, "fc":122.80 }, "memo": "MCPB"}
+   {"type": ["Y3", "M1", "Y5"], "params": {"theta0": 137.43, "fc":59.78 }, "memo": "MCPB"}
+   {"type": ["Y4", "M1", "Y5"], "params": {"theta0": 89.96, "fc":115.62 }, "memo": "MCPB"}
+   {"type": ["M1", "Y5", "HW"], "params": {"theta0": 124.95, "fc":72.49 }, "memo": "MCPB"}
+   {"type": ["CC", "CV", "Y1"], "params": {"theta0": 120.00, "fc":70.00 }, "memo": "MCPB"}
+   {"type": ["NA", "CR", "Y1"], "params": {"theta0": 120.00, "fc":70.00 }, "memo": "MCPB"}
+   {"type": ["CR", "Y1", "CV"], "params": {"theta0": 117.00, "fc":70.00 }, "memo": "MCPB"}
+   {"type": ["H5", "CR", "Y1"], "params": {"theta0": 120.00, "fc":50.00 }, "memo": "MCPB"}
+   {"type": ["Y1", "CV", "H4"], "params": {"theta0": 120.00, "fc":50.00 }, "memo": "MCPB"}
+   {"type": ["CC", "CV", "Y2"], "params": {"theta0": 120.00, "fc":70.00 }, "memo": "MCPB"}
+   {"type": ["NA", "CR", "Y2"], "params": {"theta0": 120.00, "fc":70.00 }, "memo": "MCPB"}
+   {"type": ["CR", "Y2", "CV"], "params": {"theta0": 117.00, "fc":70.00 }, "memo": "MCPB"}
+   {"type": ["H5", "CR", "Y2"], "params": {"theta0": 120.00, "fc":50.00 }, "memo": "MCPB"}
+   {"type": ["Y2", "CV", "H4"], "params": {"theta0": 120.00, "fc":50.00 }, "memo": "MCPB"}
+   {"type": ["CT", "C", "Y3"], "params": {"theta0": 117.00, "fc":70.00 }, "memo": "MCPB"}
+   {"type": ["Y3", "C", "Y4"], "params": {"theta0": 126.00, "fc":80.00 }, "memo": "MCPB"}
+   {"type": ["CT", "C", "Y4"], "params": {"theta0": 117.00, "fc":70.00 }, "memo": "MCPB"}
+   {"type": ["HW", "Y5", "HW"], "params": {"theta0": 104.52, "fc":100.00 }, "memo": "MCPB"}
+
+
+Copied theta0 from gromacs topology file and fc(desmond) = cth(gromacs)/8.368 
+
+
+dihedral_trig:
+Everything associaed with FE is 0.0 so no need to add dihedral for them.
+
+These lines are added:
+
+   {"type": ["*", "CV", "Y1", "*"], "params": {"phi0": 0.0, "fc0": 2.40, "fc1": 0.0, "fc2": -2.40, "fc3": 0.0, "fc4": 0.0, "fc5": 0.0, "fc6": 0.0}, "MCPB": "JCC,7,(1986),230"},
+   {"type": ["*", "CR", "Y1", "*"], "params": {"phi0": 0.0, "fc0": 5.00, "fc1": 0.0, "fc2": -5.00, "fc3": 0.0, "fc4": 0.0, "fc5": 0.0, "fc6": 0.0}, "MCPB": "JCC,7,(1986),230"},
+   {"type": ["*", "CV", "Y2", "*"], "params": {"phi0": 0.0, "fc0": 2.40, "fc1": 0.0, "fc2": -2.40, "fc3": 0.0, "fc4": 0.0, "fc5": 0.0, "fc6": 0.0}, "MCPB": "JCC,7,(1986),230"},
+   {"type": ["*", "CR", "Y2", "*"], "params": {"phi0": 0.0, "fc0": 5.00, "fc1": 0.0, "fc2": -5.00, "fc3": 0.0, "fc4": 0.0, "fc5": 0.0, "fc6": 0.0}, "MCPB": "JCC,7,(1986),230"}
+
+Y1 and Y2 are just NE2 atom in HID so I copied from existing parameters. 
+
+improper_trig:
+ 
+No need to add anything. Existing parameters can cover all of these new atom atypes as "*".
