@@ -1,0 +1,27 @@
+----------------------------------------
+Begin Batch Job Prologue Fri Dec 21 11:35:09 EST 2018
+Job ID:           187780
+Username:         tuf74040
+Group:            chem
+Job Name:         tica_14121
+Resources List:   walltime=48:00:00,nodes=1:ppn=1,neednodes=1:ppn=1
+Queue:            large
+Account:          
+Nodes:            g005 
+----------------------------------------
+End Batch Job Prologue Fri Dec 21 11:35:09 EST 2018
+----------------------------------------
+----------------------------------------
+Begin Batch Job Epilogue Sat Dec 22 13:15:59 EST 2018
+Job ID:           187780
+Username:         tuf74040
+Group:            chem
+Job Name:         tica_14121
+Session:          43414
+Limits:           walltime=48:00:00,nodes=1:ppn=1,neednodes=1:ppn=1
+Resources:        cput=25:37:28,vmem=168286748kb,walltime=25:40:51,mem=160742172kb,energy_used=0
+Queue:            large
+Account:          
+----------------------------------------
+End Batch Job Epilogue Sat Dec 22 13:16:20 EST 2018
+----------------------------------------

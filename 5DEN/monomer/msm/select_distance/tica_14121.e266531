@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "tica.py", line 45, in <module>
+    tica_fit = tica_model.fit(distances)
+  File "/home/tuf74040/anaconda2/lib/python2.7/site-packages/msmbuilder/decomposition/tica.py", line 278, in fit
+    self._fit(X)
+  File "/home/tuf74040/anaconda2/lib/python2.7/site-packages/msmbuilder/decomposition/tica.py", line 392, in _fit
+    self._initialize(X.shape[1])
+  File "/home/tuf74040/anaconda2/lib/python2.7/site-packages/msmbuilder/decomposition/tica.py", line 158, in _initialize
+    self._outer_offset_to_T = np.zeros((n_features, n_features))
+MemoryError
