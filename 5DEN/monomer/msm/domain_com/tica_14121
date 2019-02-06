@@ -1,0 +1,25 @@
+----------------------------------------
+Begin Batch Job Prologue Tue Feb  5 15:18:04 EST 2019
+Job ID:           287932.cb2rr.cst.temple.edu
+Username:         tuf74040
+Group:            roder_voelz
+Job Name:         tica_14121
+Resources List:   neednodes=1:ppn=1,nodes=1:ppn=1,walltime=24:00:00
+Queue:            normal
+Account:          
+Nodes:            c-2-23 
+End Batch Job Prologue Tue Feb  5 15:18:04 EST 2019
+----------------------------------------
+----------------------------------------
+Begin Batch Job Epilogue Tue Feb  5 15:18:17 EST 2019
+Job ID:           287932.cb2rr.cst.temple.edu
+Username:         tuf74040
+Group:            roder_voelz
+Job Name:         tica_14121
+Session:          6649
+Limits:           neednodes=1:ppn=1,nodes=1:ppn=1,walltime=24:00:00
+Resources:        cput=00:00:03,mem=0kb,vmem=0kb,walltime=00:00:12
+Queue:            normal
+Account:          
+End Batch Job Epilogue Tue Feb  5 15:18:37 EST 2019
+----------------------------------------
