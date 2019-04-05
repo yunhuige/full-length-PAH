@@ -44,8 +44,9 @@ Hope this helps, let me know any problems. Marcela
 ```
 
 Correspondingly, I followed these suggestions and finally got these parameters updated for ff99sb-ildn-nmr from ff99sb-ildn:
-
+```
    {"type": ["N", "CT", "C", "N"], "params": {"phi0": 0.0, "fc0": 2.73, "fc1": -0.64, "fc2": -1.21, "fc3": -0.75, "fc4": 0.13, "fc5": 0.0, "fc6": 0.0}, "memo": " phases for psi four amplitudes and, updated for ffsb-ildn-nmr"},
    {"type": ["C", "N", "CT", "C"], "params": {"phi0": 0.0, "fc0": 1.04, "fc1": 0.0, "fc2": 0.11, "fc3": 0.52, "fc4": 0.41, "fc5": 0.0, "fc6": 0.0}, "memo": " phases for phi four amplitudes and, updated for ffsb-ildn-nmr"},
    {"type": ["CT", "CT", "N", "C"], "params": {"phi0": 0.0, "fc0": 4.51, "fc1": 2.43, "fc2": 1.63, "fc3": 0.13, "fc4": 0.32, "fc5": 0.0, "fc6": 0.0}, "memo": " phases for phi' four amplitudes and, updated for ffsb-ildn-nmr"},
    {"type": ["CT", "CT", "C", "N"], "params": {"phi0": 0.0, "fc0": 1.67, "fc1": -0.41, "fc2": 0.31, "fc3": 0.70, "fc4": 0.25, "fc5": 0.0, "fc6": 0.0}, "memo": " phases for psi' four amplitudes and, updated for ffsb-ildn-nmr"},
+```
