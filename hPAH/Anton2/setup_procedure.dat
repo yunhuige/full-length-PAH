@@ -1,0 +1,14 @@
+run scripts to rename the residues of seedings
+scp the gro file to anton2
+cat the gro file to a new one, change the residue name 285HD1 and 290HD2 to 285 HP1 and 290HP1
+cp test.top, my_ff and amber99sbnmr1-ildn.ff from /anton2fs/raw/yunhui/hPAH_WT to the working directory
+convert gro/top to cms file
+convert cms file to dms file
+garden with -m viparr/4.7.12c7/bin -m viparr-ffpublic/1.0.3c7/data viparr  -f water.tip3p -d ./my_ff hPAH.dms output.dms
+convert dms to cms file (dms2mae)
+change partial charge and all force field related parameters of 290HP1 (Y1)
+convert cms to dms file
+dms-validate output3.dms --all (should only fail in water residue index (can be ignored))
+then the dms file is ready for product run
+
+
