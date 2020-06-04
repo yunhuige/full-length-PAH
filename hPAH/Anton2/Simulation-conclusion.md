@@ -40,5 +40,6 @@ Alternative putative activated state full legnth hPAH (ACT domain dimer: c1-c3, 
 
 
 total: 11181360 ps = 11 us
+
 This total time does not include test runs and equilibration runs.
 
